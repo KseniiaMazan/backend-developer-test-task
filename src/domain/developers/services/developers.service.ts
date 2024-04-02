@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { DevelopersRepository } from '../repositories/developers.repository';
-import { IDeveloper } from '../types'
+import {  IDeveloperWithRevenue } from '../types'
 
 @injectable()
 export class DevelopersService {
@@ -9,12 +9,11 @@ export class DevelopersService {
 		@inject('DevelopersRepository') private developersRepository: DevelopersRepository,
 	) {}
 
-	async getDevelopers(): Promise<IDeveloper[]>{
+	async getDevelopers(): Promise<IDeveloperWithRevenue[]>{
 		return this.developersRepository.getDevelopers()
 	}
 
-	async getDeveloperById(id: string){
+	async getDeveloperById(id: string): Promise<IDeveloperWithRevenue>{
 		return this.developersRepository.getDeveloperById(id)
 	}
-
 }

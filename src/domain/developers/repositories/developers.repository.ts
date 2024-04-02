@@ -3,22 +3,51 @@
 // **************************************************************************
 
 import { injectable } from 'inversify';
-import { IDeveloper } from '../types'
+import { ContractStatus, IContract, IDeveloper, IDeveloperWithRevenue } from '../types'
 import { contracts, developers } from './data'
+import { DeveloperByIdNotFoundError } from '../errors';
 
 @injectable()
 export class DevelopersRepository {
+	private getCompletedContractsRevenueByDeveloperId(devId: string): number{
+		const devCompletedContracts = contracts.filter(contract => (
+			contract.status === ContractStatus.completed && contract.developerId === devId
+		))
 
-	async getDevelopers(): Promise<IDeveloper[]>{
-		return developers
+		return devCompletedContracts.reduce(
+			(accumulator, currValue) => accumulator + currValue.amount,
+			0
+		)
 	}
 
-	async getDeveloperById(id: string): Promise<IDeveloper>{
-		return developers.find(d => d.id === id)
+	async getDevelopers(): Promise<IDeveloperWithRevenue[]>{
+		const result = developers.map((developer:IDeveloper) => {
+			const revenue = this.getCompletedContractsRevenueByDeveloperId(developer.id)
+
+			return {
+				...developer,
+				revenue,
+			}
+		})
+
+		return result
 	}
 
-	async getContracts(){
+	async getDeveloperById(id: string): Promise<IDeveloperWithRevenue>{
+		try {
+			const developer = developers.find(d => d.id === id)
+			const revenue = this.getCompletedContractsRevenueByDeveloperId(developer.id)
+			
+			return {
+				...developer,
+				revenue,
+			}
+		} catch {
+			throw DeveloperByIdNotFoundError
+		}
+	}
+
+	async getContracts(): Promise<IContract[]>{
 		return contracts
 	}
-
 }
