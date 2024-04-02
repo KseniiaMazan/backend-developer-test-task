@@ -1,14 +1,14 @@
-import { IDeveloper } from '../types'
+import { IContract, IDeveloper, ContractStatus } from '../types'
 
-export const contracts = [
-	{ id: 1, developerId: '65de3467255f31cb84bd071d', status: 'pending', amount: 5000 },
-	{ id: 2, developerId: '65de346c255f31cb84bd10e9', status: 'completed', amount: 12000 },
-	{ id: 3, developerId: '65de346c255f31cb84bd10e9', status: 'ongoing', amount: 200 },
-	{ id: 4, developerId: '65de346b255f31cb84bd0fd6', status: 'pending', amount: 500 },
-	{ id: 5, developerId: '65de346a255f31cb84bd0e01', status: 'completed', amount: 6000 },
-	{ id: 6, developerId: '65de346a255f31cb84bd0e01', status: 'completed', amount: 5000 },
-	{ id: 7, developerId: '65de3467255f31cb84bd071d', status: 'ongoing', amount: 8000 },
-	{ id: 8, developerId: '65de3467255f31cb84bd071d', status: 'ongoing', amount: 32000 },
+export const contracts: IContract[] = [
+	{ id: 1, developerId: '65de3467255f31cb84bd071d', status: ContractStatus.pending, amount: 5000 },
+	{ id: 2, developerId: '65de346c255f31cb84bd10e9', status: ContractStatus.completed, amount: 12000 },
+	{ id: 3, developerId: '65de346c255f31cb84bd10e9', status: ContractStatus.ongoing, amount: 200 },
+	{ id: 4, developerId: '65de346b255f31cb84bd0fd6', status: ContractStatus.pending, amount: 500 },
+	{ id: 5, developerId: '65de346a255f31cb84bd0e01', status: ContractStatus.completed, amount: 6000 },
+	{ id: 6, developerId: '65de346a255f31cb84bd0e01', status: ContractStatus.completed, amount: 5000 },
+	{ id: 7, developerId: '65de3467255f31cb84bd071d', status: ContractStatus.ongoing, amount: 8000 },
+	{ id: 8, developerId: '65de3467255f31cb84bd071d', status: ContractStatus.ongoing, amount: 32000 },
 ]
 
 export const developers: IDeveloper[] = [
